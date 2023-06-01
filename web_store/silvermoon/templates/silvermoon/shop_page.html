@@ -1,0 +1,98 @@
+{% extends "silvermoon/layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="shop_div">
+    <div class="shop_container">
+        <div class="shop_container_sort"></div>
+        <div class="shop_container_main">
+            <div class="shop_container_filters"></div>
+            <div class="shop_container_products">
+                {% for game in Games %}
+                <div class="shop_container_products_item">
+                    <div class="shop_container_products_item_imagewrapper">
+                        <a href="" target="_blank" class="img-shadow centered_a"><img class="shop_container_products_item_image" {% if game.image %} src="{{game.image.url}}" {% else %} src="" {% endif %} alt=""></a>
+                    </div>
+                    <div class="shop_container_products_item_infowrapper">
+
+                        <div class="shop_container_products_item_title">
+                            <a href="" target="_blank">
+                                <div class="shop_container_products_item_titlelink">
+                                    {{game.title}}
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="shop_container_products_item_gamedata">
+                            <div class="shop_container_products_item_gamedata_tags">
+                                {% if game.genre %}
+                                <div class="shop_container_products_item_gamedata_tags_tag">
+                                    {{game.genre.name}}
+                                </div>
+                                {% endif %}
+                                {% if game.subgenre %}
+                                <div class="shop_container_products_item_gamedata_tags_tag">
+                                    {{game.subgenre.name}}
+                                </div>
+                                {% endif %}
+                                {% if game.visual %}
+                                <div class="shop_container_products_item_gamedata_tags_tag">
+                                    {{game.visual.name}}
+                                </div>
+                                {% endif %}
+                                {% if game.theme %}
+                                <div class="shop_container_products_item_gamedata_tags_tag">
+                                    {{game.theme.name}}
+                                </div>
+                                {% endif %}
+                                {% if game.feature %}
+                                <div class="shop_container_products_item_gamedata_tags_tag">
+                                    {{game.feature.name}}
+                                </div>
+                                {% endif %}
+                                {% if game.playersType %}
+                                <div class="shop_container_products_item_gamedata_tags_tag">
+                                    {{game.playersType.name}}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="shop_container_products_item_gamedata_releaseDate">
+                                {{game.releaseDate|date:"j E Y"}}
+                            </div>
+                            <div {% if game.score > 75 %} class="shop_container_products_item_gamedata_score green_score" {% elif game.score > 50 %} class="shop_container_products_item_gamedata_score yellow_score" {% else %} class="shop_container_products_item_gamedata_score red_score" {% endif %}>
+                                Metascore: {{game.score}}
+                            </div>
+                        </div>
+                        
+                        <div class="shop_container_products_item_priceAndButton">
+                            <div class="shop_container_products_item_price">
+                                {{game.price|floatformat:2}}₴
+                            </div>
+                            <div class="shop_container_products_item_button" id="shop_container_products_item_button{{game.id}}" onclick="addCookieItem(this, {{game.id}});">
+                                Додати в кошик
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function shopPagePrerender() {
+        let classNameActive = 'shop_container_products_item_button_active';
+        let buttonLabelAdd = 'Додати в кошик';
+        let buttonLabelRemove = 'Вилучити з кошика';
+        for (const [key, value] of Object.entries(cart)) {
+            const productButton = document.getElementById(`shop_container_products_item_button${key}`)
+            productButton.classList.add(classNameActive);
+            productButton.innerHTML = buttonLabelRemove;
+        }
+    }
+    shopPagePrerender();
+</script>
+{% endblock content %}
