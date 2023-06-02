@@ -68,3 +68,33 @@ function removeCookieItem(productId){
     updateCartCounter();
     location.reload()
 }
+
+function addQueryStringParameter(url, key, value) {
+    if (value === null || value === undefined) {
+        window.location.replace(url);
+    }
+
+    value = encodeURIComponent(value);
+
+    var re = new RegExp('([?&])' + key + '=.*?(&|$)', 'i'),
+        separator = url.indexOf('?') !== -1 ? '&' : '?';
+    if (url.match(re)) {
+        window.location.replace(url.replace(re, '$1' + key + '=' + value + '$2'));
+    } else {
+        window.location.replace(url + separator + key + '=' + value);
+    }
+}
+
+function RenderSort() {
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+    // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+    let value = params.sort_by;
+    if (value == undefined || value == '') {
+        value = 'sort-off'
+    }
+    const sortButton = document.getElementById(`${value}`);
+    sortButton.classList.add('sort_button_active');
+}
+RenderSort();

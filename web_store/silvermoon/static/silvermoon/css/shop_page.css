@@ -294,3 +294,132 @@
 .shop_container_products_item_button_active {
     background: linear-gradient(90deg, #444550, #1d202c);
 }
+
+.shop_container_filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.shop_container_filters_big {
+    /* color: rgba(255, 255, 255, 0.85); */
+    opacity: 85%;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: .03em;
+    padding: 4px 0;
+    width: fit-content;
+    flex-grow: 1;
+}
+
+.shop_container_filters_buttons {
+    padding-left: 12px;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    flex-grow: 1;
+    cursor: pointer;
+    width: max-content;
+}
+
+.shop_container_filters_buttons:hover {
+    color: #fff;
+}
+
+.shop_container_filters_form label:last-child {
+    display: none;
+}
+
+.shop_container_filters_form label {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+}
+
+.shop_container_filters_form select {
+    background-color: transparent;
+    font-weight: 13px;
+    height: max-content;
+    color: #fff;
+    border: none;
+}
+
+.shop_container_filters_form select option {
+    background-color: rgb(114, 120, 126);
+    border: solid 1px rgb(18, 18, 18);
+}
+
+#id_title__icontains {
+  font-family: inherit;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 15px;
+  font-weight: normal;
+  padding: 7px 5px;
+  padding: 0 5px 7px 5px;
+  color:  #fff;
+  background: transparent;
+}
+
+.shop_container_filters_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 155px;
+    padding: 8px 15px;
+    transition: box-shadow .2s ease;
+    height: 38px;
+    box-sizing: border-box;
+    color: #dfe3e6;
+    text-align: center;
+    border-radius: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    align-self: center;
+    user-select: none;
+    font-size: 14px;
+
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    background: rgba(66, 69, 76, 0.6);
+}
+
+.shop_container_filters_button:hover {
+    color: #fff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+
+.shop_container_filters_button:active {
+    color: #fff;
+    box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.552);
+    cursor: pointer;
+}
+
+.shop_container_sort {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.sort_button {
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.sort_button:hover {
+    background-color: rgba(255,255,255,.2);
+}
+
+.sort_button_active {
+    border-bottom: 2px solid #fff;
+    color: #fff;
+}

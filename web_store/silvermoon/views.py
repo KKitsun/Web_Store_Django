@@ -4,11 +4,36 @@ from rest_framework.decorators import api_view
 from .models import *
 from .utils import *
 from .serializers import GameCartSerializer
+from .filters import GameFilter
+from urllib.parse import urlencode
+
+# def shop_page(request):
+#     game_filter = GameFilter(request.GET, queryset=Game.objects.all())
+#     context = {
+#          'form': game_filter.form,
+#          "Games": game_filter.qs
+# 	}
+#     return render(request, "silvermoon/shop_page.html", context)
 
 def shop_page(request):
-    return render(request, "silvermoon/shop_page.html", {
-        "Games": Game.objects.all()
-    })
+    queryset = Game.objects.all()
+    existing_params = request.GET.copy()
+    if 'sort_by' in request.GET:
+          category = request.GET['sort_by']
+          if category is not '':
+                 queryset = queryset.order_by(category)
+    filtered_url = request.path + '?' + urlencode(existing_params)
+    
+    context = {
+        "Games": queryset,
+        "Genres": Genre.objects.all(),
+        "Subgenres": Subgenre.objects.all(),
+        "Visuals": Visual.objects.all(),
+		"Themes": Theme.objects.all(),
+        "Features": Feature.objects.all(),
+        "Players": PlayersType.objects.all(),
+	}
+    return render(request, "silvermoon/shop_page.html", context)
 
 def cart(request):
     return render(request, "silvermoon/cart.html")

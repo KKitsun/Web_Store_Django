@@ -5,9 +5,58 @@
 
 <div class="shop_div">
     <div class="shop_container">
-        <div class="shop_container_sort"></div>
+        <div class="shop_container_sort">
+            <div class="sort_button" id="sort-off" onclick="addQueryStringParameter(window.location.href, 'sort_by', '')">Усі товари</div>
+            <div class="sort_button" id="price" onclick="addQueryStringParameter(window.location.href, 'sort_by', 'price')">За зростанням ціни</div>
+            <div class="sort_button" id="-price" onclick="addQueryStringParameter(window.location.href, 'sort_by', '-price')">За спаданням ціни</div>
+            <div class="sort_button" id="-score" onclick="addQueryStringParameter(window.location.href, 'sort_by', '-score')">За оцінкою</div>
+            <div class="sort_button" id="releaseDate" onclick="addQueryStringParameter(window.location.href, 'sort_by', 'releaseDate')">За датою виходу</div>
+            <div class="sort_button" id="-releaseDate" onclick="addQueryStringParameter(window.location.href, 'sort_by', '-releaseDate')">За новизною</div>
+        </div>
         <div class="shop_container_main">
-            <div class="shop_container_filters"></div>
+
+            <div class="shop_container_filters">
+                <!-- <form method="GET" action="{% url 'shop_page' %}" class="shop_container_filters_form">
+                    {{form}}
+                    <input type="submit" value="Застосувати фільтри" class="shop_container_filters_button">
+                </form> -->
+                <div>
+                    <div class="shop_container_filters_big">Жанри</div>
+                    {% for genre in Genres %}
+                    <div class="shop_container_filters_buttons">{{genre.name}}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <div class="shop_container_filters_big">Піджанри</div>
+                    {% for subgenre in Subgenres %}
+                    <div class="shop_container_filters_buttons">{{subgenre.name}}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <div class="shop_container_filters_big">Візуальний стиль і перспектива</div>
+                    {% for visual in Visuals %}
+                    <div class="shop_container_filters_buttons">{{visual.name}}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <div class="shop_container_filters_big">Тематика й атмосфера</div>
+                    {% for theme in Themes %}
+                    <div class="shop_container_filters_buttons">{{theme.name}}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <div class="shop_container_filters_big">Особливості</div>
+                    {% for feature in Features %}
+                    <div class="shop_container_filters_buttons">{{feature.name}}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <div class="shop_container_filters_big">Гравці</div>
+                    {% for player in Players %}
+                    <div class="shop_container_filters_buttons">{{player.name}}</div>
+                    {% endfor %}
+                </div>
+            </div>
             <div class="shop_container_products">
                 {% for game in Games %}
                 <div class="shop_container_products_item">
