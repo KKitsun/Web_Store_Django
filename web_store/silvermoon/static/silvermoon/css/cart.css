@@ -287,3 +287,12 @@
     box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.552);
     cursor: pointer;
 }
+
+.cart_container_products_cartitem_imagewrapper {
+    padding: 4px;
+}
+
+.cart_container_products_cartitem_image {
+    height: 102px;
+    width: 219px;
+}

@@ -65,16 +65,16 @@ class RenderCart {
                     if (gamesData[i].id == key) {
                         htmlCatalog += `
                         <div class="cart_container_products_cartitem">
-                        <div class="shop_container_products_item_imagewrapper">
-                            <a href="" target="_blank" class="img-shadow centered_a"><img class="shop_container_products_item_image"  src="${gamesData[i].image}" alt=""></a>
+                        <div class="cart_container_products_cartitem_imagewrapper">
+                            <div class="img-shadow centered_a"><img class="cart_container_products_cartitem_image"  src="${gamesData[i].image}" alt=""></div>
                         </div>
 
                         <div class="cart_container_products_cartitem_title">
-                            <a href="" target="_blank">
+                            <div>
                                 <div class="cart_container_products_cartitem_titlelink">
                                 ${gamesData[i].title}
                                 </div>
-                            </a>
+                            </div>
                         </div>
 
                         <div class="cart_container_products_cartitem_price">
@@ -115,9 +115,11 @@ class RenderCart {
                     <div>Разом:</div>
                     <div>${sumCatalog.toLocaleString()}₴</div>
                 </div>
-                <div class="cart_container_total_button">
-                    Оформити замовлення
-                </div>
+                <a href="${checkoutURL}">
+                    <div class="cart_container_total_button">
+                        Оформити замовлення
+                    </div>
+                </a>
             </div>
         `;
         const ROOT_CART = document.getElementById('cart');

@@ -84,17 +84,3 @@ function addQueryStringParameter(url, key, value) {
         window.location.replace(url + separator + key + '=' + value);
     }
 }
-
-function RenderSort() {
-    const params = new Proxy(new URLSearchParams(window.location.search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-    });
-    // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-    let value = params.sort_by;
-    if (value == undefined || value == '') {
-        value = 'sort-off'
-    }
-    const sortButton = document.getElementById(`${value}`);
-    sortButton.classList.add('sort_button_active');
-}
-RenderSort();

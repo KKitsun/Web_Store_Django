@@ -1,0 +1,76 @@
+{% extends "silvermoon/layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="gamepage_title">
+    <div class="gamepage_title_header">{{game.title}}</div>
+</div>
+
+<div class="gamepage_wrapper">
+
+    <div class="game_description_container">
+        <p class="game_description_p">{{game.description|linebreaks}}</p>
+    </div>
+
+    <div class="game_info_container">
+        <div class="game_info_container_imagewrapper">
+            <img class="game_info_container_image"  src="{{game.image.url}}" alt="">
+        </div>
+        
+        <div class="game_info_container_infowrapper">
+            <div class="game_info_container_releaseDate">
+                Дата виходу: {{game.releaseDate|date:"j E Y"}}
+            </div>
+            <hr class="game_info_container_hr">
+            <div class="game_info_container_releaseDate">
+                Розробник: {{game.developer}}
+            </div>
+            <hr class="game_info_container_hr">
+            <div {% if game.score > 75 %} class="game_info_container_releaseDate green_score" {% elif game.score > 50 %} class="game_info_container_releaseDate yellow_score" {% else %} class="game_info_container_releaseDate red_score" {% endif %}>
+                Metascore: {{game.score}}
+            </div>
+            <hr class="game_info_container_hr">
+            <div class="game_info_container_releaseDate">
+                {% if game.genre %}
+                <div class="game_info_container_tags_tag">
+                    Жанр: {{game.genre.name}}
+                </div>
+                {% endif %}
+                {% if game.subgenre %}
+                <div class="game_info_container_tags_tag">
+                    Піджанр: {{game.subgenre.name}}
+                </div>
+                {% endif %}
+                {% if game.visual %}
+                <div class="game_info_container_tags_tag">
+                    Візуальний стиль: {{game.visual.name}}
+                </div>
+                {% endif %}
+                {% if game.theme %}
+                <div class="game_info_container_tags_tag">
+                    Тематика: {{game.theme.name}}
+                </div>
+                {% endif %}
+                {% if game.feature %}
+                <div class="game_info_container_tags_tag">
+                    Особливість: {{game.feature.name}}
+                </div>
+                {% endif %}
+                {% if game.playersType %}
+                <div class="game_info_container_tags_tag">
+                    Тип гравців: {{game.playersType.name}}
+                </div>
+                {% endif %}
+            </div>
+            <hr class="game_info_container_hr">
+            <div class="game_info_container_releaseDate">
+                Ціна: {{game.price}}₴
+            </div>
+        
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

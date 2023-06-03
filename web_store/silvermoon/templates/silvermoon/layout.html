@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'silvermoon/css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'silvermoon/css/cart.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'silvermoon/css/shop_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'silvermoon/css/checkout.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'silvermoon/css/game_page.css' %}">
 
     <script>
       function getCookie(name) {
@@ -38,7 +40,10 @@
 
     </script>
 
-    <script> let cartURL = "{% url 'cart-data' %}"; </script>
+    <script> 
+      let cartURL = "{% url 'cart-data' %}"; 
+      let checkoutURL = "{% url 'checkout' %}";
+    </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
@@ -68,7 +73,7 @@
 
     <main>
     {% block content %}
-    {% endblock content %}
+    {% endblock %}
     </main>
 
     <footer>
