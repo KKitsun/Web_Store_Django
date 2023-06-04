@@ -2,18 +2,11 @@
 
 class RenderCart {
     constructor() {
-        // this.gamesData = await this.fetchData();
     }
 
     async fetchData(){
         const response = await axios.get(cartURL);
         return response.data;
-            // .then(response => {
-             
-            // })
-            // .catch(error => {
-            //   console.error(error);
-            // });
     }
 
     cartChangeQuantity(productId, action) {

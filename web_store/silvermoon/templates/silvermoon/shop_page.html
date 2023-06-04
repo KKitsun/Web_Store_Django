@@ -161,7 +161,7 @@
         const params = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop),
         });
-        // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+        
         let sort_opt = params.sort_by;
         if (sort_opt == undefined || sort_opt == '') {
             sort_opt = 'sort-off'
@@ -169,12 +169,7 @@
         const sortButton = document.getElementById(`${sort_opt}`);
         sortButton.classList.add('sort_button_active');
 
-        // let filter_opt = params.genre_filter;
-        // if (filter_opt == undefined || filter_opt == '') {
-        //     filter_opt = 'filter-off'
-        // }
-        // const filterButton = document.getElementById(`genre_${filter_opt}`);
-        // filterButton.classList.add('shop_container_filters_buttons_active');
+        
         filterOptsAddClass(params, 'genre');
         filterOptsAddClass(params, 'subgenre');
         filterOptsAddClass(params, 'visual');

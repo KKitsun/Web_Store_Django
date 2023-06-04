@@ -65,17 +65,20 @@ class Game(models.Model):
         return f"{self.title}"
     
 class Order(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
     email = models.EmailField()
     date = models.DateField(auto_now_add=True)
 
+    ORDERED = "O"
+    READY = "R"
+    COMPLETED = "C"
     STATUS_OPTIONS = [
-        ("O", "Ordered"),
-        ("R", "Ready"),
-        ("C", "Completed"),
+        (ORDERED, "Ordered"),
+        (READY, "Ready"),
+        (COMPLETED, "Completed"),
     ]
     
-    status = models.CharField(max_length=1, choices=STATUS_OPTIONS,default="O")
+    status = models.CharField(max_length=1, choices=STATUS_OPTIONS,default=ORDERED)
     games = models.ManyToManyField(Game, through="OrderGame")
 
     def __str__(self):

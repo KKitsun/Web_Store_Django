@@ -6,14 +6,14 @@ from .utils import *
 from .serializers import GameCartSerializer
 from .filters import GameFilter
 from urllib.parse import urlencode
+import json
+from django.http import JsonResponse
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
 
-# def shop_page(request):
-#     game_filter = GameFilter(request.GET, queryset=Game.objects.all())
-#     context = {
-#          'form': game_filter.form,
-#          "Games": game_filter.qs
-# 	}
-#     return render(request, "silvermoon/shop_page.html", context)
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import BytesIO
 
 def shop_page(request):
     queryset = Game.objects.all()
@@ -76,6 +76,37 @@ def game_page(request, id):
     game = Game.objects.get(pk=id)
     context = {'game':game}
     return render(request, "silvermoon/game_page.html", context)
+
+def pdf_report_create(request, order):
+    data = cookieCart(request)
+    order_details = data['order']
+    items = data['items']
+
+    template_path = 'silvermoon/Invoice_template_for_pdf.html'
+
+    context = {'items':items, 'order':order_details, 'specific_order': order}
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+    result = BytesIO()
+
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+    pdf = result.getvalue()
+    
+    to_emails = [str(order.email)]
+    subject = "Silvermoon замовлення"
+    email = EmailMessage(subject, body="Дякуємо за покупку!", from_email=settings.EMAIL_HOST_USER, to=to_emails)
+    email.attach("Silvermoon_invoice.pdf", pdf, "application/pdf")
+    email.send(fail_silently=False)
+
+def processPaymentResult(request):
+    paymentResult = json.loads(request.body)
+    order = guestOrder(request, paymentResult)
+    order.status = Order.COMPLETED
+    order.save()
+    pdf_report_create(request, order)
+    return JsonResponse('Successful transaction', safe=False)
 
 @api_view(['GET'])
 def cart_data(request):

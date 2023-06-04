@@ -9,12 +9,10 @@ def cookieCart(request):
 
 	items = []
 	order = {'get_cart_total':0, 'get_cart_items':0}
-	# cartItems = order['get_cart_items']
 
 	for i in cart:
 		try:	
 			if(cart[i]['quantity'] > 0):  
-				# cartItems += cart[i]['quantity']
 
 				product = Game.objects.get(id=i)
 				total = (product.price * cart[i]['quantity'])
@@ -39,44 +37,24 @@ def cookieCart(request):
 			
 	return {'order':order, 'items':items}
 
-# def cartData(request):
-# 	# if request.user.is_authenticated:
-# 	# 	customer = request.user.customer
-# 	# 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
-# 	# 	items = order.orderitem_set.all()
-# 	# 	cartItems = order.get_cart_items
-# 	# else:
-# 	cookieData = cookieCart(request)
-# 	cartItems = cookieData['cartItems']
-# 	order = cookieData['order']
-# 	items = cookieData['items']
-
-# 	return {'cartItems':cartItems ,'order':order, 'items':items}
-
 	
-# def guestOrder(request, data):
-# 	name = data['form']['name']
-# 	email = data['form']['email']
+def guestOrder(request, data):
+	name = data['paymentData']['email'].split('@')[0]
+	email = data['paymentData']['email']
 
-# 	cookieData = cookieCart(request)
-# 	items = cookieData['items']
+	cookieData = cookieCart(request)
+	items = cookieData['items']
 
-# 	customer, created = Customer.objects.get_or_create(
-# 			email=email,
-# 			)
-# 	customer.name = name
-# 	customer.save()
+	order = Order.objects.create(
+		email = email,
+		name = name,
+	)
 
-# 	order = Order.objects.create(
-# 		customer=customer,
-# 		complete=False,
-# 		)
-
-# 	for item in items:
-# 		product = Product.objects.get(id=item['id'])
-# 		orderItem = OrderItem.objects.create(
-# 			product=product,
-# 			order=order,
-# 			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']), # negative quantity = freebies
-# 		)
-# 	return customer, order
+	for item in items:
+		game = Game.objects.get(id=item['product']['id'])
+		orderGame = OrderGame.objects.create(
+			order=order,
+			game=game,
+			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']),
+		)
+	return order
