@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'silvermoon_db',
         'USER': 'root',
-        'PASSWORD': 'alarmsetoff2',
+        'PASSWORD': '',
         'HOST':'localhost',
         'PORT':'3306',
     }

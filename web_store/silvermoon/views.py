@@ -4,8 +4,6 @@ from rest_framework.decorators import api_view
 from .models import *
 from .utils import *
 from .serializers import GameCartSerializer
-from .filters import GameFilter
-from urllib.parse import urlencode
 import json
 from django.http import JsonResponse
 from django.core.mail import send_mail, EmailMessage
@@ -81,10 +79,14 @@ def pdf_report_create(request, order):
     data = cookieCart(request)
     order_details = data['order']
     items = data['items']
+    game_keys = []
+    for k in range(order_details['get_cart_items']):
+          game_keys.append(genKey())
 
+    print(game_keys)
     template_path = 'silvermoon/Invoice_template_for_pdf.html'
 
-    context = {'items':items, 'order':order_details, 'specific_order': order}
+    context = {'items':items, 'order':order_details, 'specific_order': order, 'game_keys':game_keys}
 
     template = get_template(template_path)
 

@@ -151,7 +151,28 @@
             align-items: center;
             justify-content: center;
         }
-            </style>
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+
+        th {
+            /* font-weight: 600; */
+            padding: 10px 10px;
+            border: 2px solid rgb(0,0,0);
+            text-align: center;
+            background-color: rgb(88, 88, 88);
+            /* color: rgba(255, 255, 255);
+            font-size: large; */
+        }
+
+        td {
+            padding: 10px 10px;
+            border: 2px solid rgb(25,25,25);
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="company_info">
@@ -163,7 +184,6 @@
         {% language 'en' %}
         <div>Order date: {{specific_order.date|unlocalize}}</div>
         {% endlanguage %}
-        <hr class="order_info_container_hr">
 
         <table>
         {% for item in items %}
@@ -172,16 +192,22 @@
                 <td>{{item.product.name}}</td><td>x{{item.quantity}}</td><td>{{item.get_total}} UAH</td>
             </tr>
 
-
-
         {% endfor %}
         </table>
-    
-            <hr class="order_info_container_hr">
+    <br>
                 <div>Total quantity of goods: {{order.get_cart_items}}</div>
                 <div>Total: {{order.get_cart_total}} UAH</div>
 
-            <hr class="order_info_container_hr">
+            <table>
+                <tr style="background-color: #d3d3d3;">
+                    <td>Your game keys:</td>
+                    <td>
+                        {% for game_key in game_keys %}
+                            <p style="font-size: 10px;">{{game_key}}</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
         
     </div>
 </body>
